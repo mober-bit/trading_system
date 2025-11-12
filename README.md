@@ -1,7 +1,7 @@
-<<<<<<< HEAD
+ HEAD
 # trading_system
 for trading
-=======
+
 # Trading System 🚀
 
 This repo contains:

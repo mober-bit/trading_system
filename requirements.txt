@@ -2,6 +2,8 @@ pandas
 numpy
 matplotlib
 plotly
+panel
 ta-lib
 ib-insync
-streamlit 
+streamlit
+alpha_vantage
