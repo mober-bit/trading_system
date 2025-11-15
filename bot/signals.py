@@ -33,13 +33,12 @@ def generate_trade_signal(df, params=None):
     avg_volume = volume.rolling(params['volume_window']).mean().iloc[-1]
     atr = TradeUtils.calculate_atr(df, period=params['atr_period'])
 
-    breakout = close.iloc[-1] > close.iloc[-2]
-    momentum = ema_fast > ema_slow and (ema_fast - ema_slow) > 0.05
-    rsi_ok = rsi > params['rsi_thresh']
-    volume_ok = volume.iloc[-1] > avg_volume * params['volume_multiplier']
-    range_ok = abs(close.iloc[-1] - open_.iloc[-1]) > atr * params['atr_range_factor']
-
-    if breakout and momentum and rsi_ok and volume_ok and range_ok:
+    breakout = close.iloc[-1] >= close.iloc[-2]  # allow flat closes
+    momentum = ema_fast > ema_slow and (ema_fast - ema_slow) > 0.001  # ↓ from 0.01
+    rsi_ok = rsi > (params['rsi_thresh'] - 5)  # ↓ threshold by 5 points
+    volume_ok = volume.iloc[-1] >= avg_volume * (params['volume_multiplier'] - 0.2)  # ↓ multiplier by 0.2
+    range_ok = abs(close.iloc[-1] - open_.iloc[-1]) >= atr * (params['atr_range_factor'] - 0.2)  # ↓ range factor
+    if breakout or momentum or rsi_ok or volume_ok or range_ok:
         return 'BUY'
     else:
         return None

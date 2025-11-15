@@ -100,28 +100,25 @@ def run_bot_all_day(bot, utils,live):
                 size = utils.calculate_position_size(capital=10000, risk_pct=0.01, stop_distance=atr)
 
                 signal = generate_trade_signal(df)
+                print(f"📈 Signal for {symbol}: {signal}")
+
 
                 if signal == 'BUY':
                     size = utils.calculate_position_size(capital=10000, risk_pct=0.01, stop_distance=0.50)
                     bot.place_order(symbol, signal, size)  # pass as separate arguments
-                else:
-                    continue
+                
+    
             
                 entry_price = bot.get_live_price(symbol)    
                 if entry_price:
                     bot.place_bracket_order(symbol, signal, size, entry_price, stop_price, take_profit_price)
 
-                #Wait before next ticker
-                time.sleep(5)  # Small delay between tickers
                 
             except Exception as e:
                 print(f"❌ Error processing {symbol}: {e}")
                 continue
 
-        #Wait before next cycle
-        time.sleep(60)  # adjust frequency as needed
-
-   
+       
 
 def safe_place_order(self, symbol, action, quantity, limit_price=None, retries=3):
     for attempt in range(retries):

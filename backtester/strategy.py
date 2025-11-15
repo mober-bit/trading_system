@@ -49,9 +49,9 @@ class MomentumBreakoutScalper(bt.Strategy):
             return  # in cooldown period
 
         breakout = self.data.close[0] > self.data.close[-1]
-        momentum = self.ema_fast[0] > self.ema_slow[0] and (self.ema_fast[0] - self.ema_slow[0]) > 0.05
-        rsi_ok = self.rsi[0] > 55
-        volume_ok = self.data.volume[0] > self.avg_volume[0] * 1.1
+        momentum = self.ema_fast[0] > self.ema_slow[0] and (self.ema_fast[0] - self.ema_slow[0]) > 0.0
+        rsi_ok = self.rsi[0] > 50
+        volume_ok = self.data.volume[0] > self.avg_volume[0] * 0.9
         price_range = abs(self.data.close[0] - self.data.open[0])
         range_ok = price_range > self.atr[0] * 0.5
         
