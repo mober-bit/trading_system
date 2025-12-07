@@ -1,9 +1,11 @@
 pandas
 numpy
+torch
+scikit-learn
 matplotlib
-plotly
-panel
-ta-lib
+backtrader
 ib-insync
-streamlit
-alpha_vantage
+yfinance
+websocket-client
+requests
+python-dotenv
